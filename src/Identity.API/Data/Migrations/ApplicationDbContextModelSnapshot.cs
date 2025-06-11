@@ -315,6 +315,43 @@ namespace eShop.Identity.API.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
+
+            modelBuilder.Entity("eShop.Identity.API.Models.UserProfile", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShopDescription")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShopName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShopUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserProfiles", (string)null);
+                });
+
+            modelBuilder.Entity("eShop.Identity.API.Models.UserProfile", b =>
+                {
+                    b.HasOne("eShop.Identity.API.Models.ApplicationUser", "User")
+                        .WithOne()
+                        .HasForeignKey("eShop.Identity.API.Models.UserProfile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
 #pragma warning restore 612, 618
         }
     }
